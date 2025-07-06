@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Forgot Page</title>
+</head>
+<body>
+
+	<section>
+
+		<div class="card m-3 ">
+			<div class="card-body mt-5">
+
+
+				<section class="text-gray-600 body-font relative">
+					<div class="container px-5 py-24 mx-auto">
+
+						<div th:if="${session.message}" class="container">
+							<div class="alert alert-danger my-2 col-md-8 offset-md-2 text-center" role="alert">
+								<span class="text-center fs-4"
+									th:text="${session.message}"></span>
+							</div>
+
+							<th:block th:text="${@sessionHelpher.removeMessageFromSession()}"></th:block>
+						</div>
+
+						<div class="flex flex-col text-center w-full mb-8">
+							<h1
+								class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Your
+								Registered Email</h1>
+
+						</div>
+						<form th:action="@{/send-otp}" method="POST">
+							<div class="lg:w-1/2 md:w-2/3 mx-auto">
+								<div class="flex flex-wrap -m-2">
+
+									<div class="p-2 w-full mb-2">
+										<div class="relative">
+											<input required type="email" id="email" name="email"
+												class="w-full bg-gray-100 bg-opacity-50 text-lg rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
+												placeholder="Enter email here">
+										</div>
+									</div>
+
+									<div class="p-2 w-full flex mx-auto text-center justify-center">
+										<button type="submit"
+											class="btn btn-warning m-2 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Send
+											OTP</button>
+									</div>
+
+
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</section>
+
+			</div>
+		</div>
+
+
+	</section>
+
+
+</body>
+</html>

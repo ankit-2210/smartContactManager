@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/user_base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Show Contacts</title>
+</head>
+<body>
+	<section>
+
+		<div class="card m-3">
+			<div class="card-body">
+
+				<h2 class="text-center">Show Contacts</h2>
+
+				<div class="flex justify-end">
+					<div class=" w-full  max-w-lg min-w-[300px]">
+
+						<div class="relative">
+							<input onkeyup="search()" id="search-input" type="text"
+								class="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-28 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+								placeholder="UI Kits, Dashboards..." />
+							<button onclick="searchquery()"
+								class="searchbutton absolute top-1 right-1 flex items-center rounded bg-slate-800 py-1 px-2.5 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+								type="button">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+									fill="currentColor" class="w-4 h-4 mr-2">
+        							<path fill-rule="evenodd"
+										d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
+										clip-rule="evenodd" />
+      							</svg>
+								Search
+							</button>
+
+							<div
+								class="absolute border-solid border-1 hidden border-gray search-result w-full  max-w-lg min-w-[270px]">
+								<h2>Result</h2>
+							</div>
+
+
+						</div>
+
+
+					</div>
+				</div>
+
+
+				<div class="table-responsive">
+					<table class="table mt-4 table-hover">
+						<thead class="table-light">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Name</th>
+								<th scope="col">Email</th>
+								<th scope="col">Phone</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="c : ${contacts}">
+								<th scope="row" th:text="${c.cid}">1</th>
+								<td class="flex"><img src=""
+									class="w-8 h-8 object-cover rounded-full border-2 border-black-600 mr-3"
+									th:src="@{'/img/'+${c.imageProfile}}" alt="profile photo" /> <span
+									th:text="${c.name}"></span></td>
+								<td><a href="#" th:href="@{'/user/'+${c.cid}+'/contact'}">
+										<span th:text="${c.email}"></span>
+								</a></td>
+								<td th:text="${c.phone}">@mdo</td>
+								<td class="flex gap-1">
+									<button th:onclick="|deleteContact(${c.cid})|"
+										th:href="@{'/user/delete/'+${c.cid}}"
+										class="btn btn-danger btn-sm">Delete</button>
+
+									<form method="post"
+										th:action="@{'/user/update-contact/'+${c.cid}}">
+										<button type="submit" class="btn btn-warning btn-sm">Update</button>
+									</form>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+
+				<nav aria-label="Page navigation example">
+
+					<ul class="pagination">
+
+						<li th:if="${currentPage != 0}" class="page-item"><a
+							th:href="@{'/user/show-contacts/'+${currentPage-1}}"
+							class="page-link" href="#">Previous</a></li>
+						<li th:classappend="${currentPage==i-1?'active':''}"
+							th:each="i : ${#numbers.sequence(1, totalPage)}"
+							class="page-item"><a
+							th:href="@{'/user/show-contacts/'+${i-1}}" class="page-link"
+							href="#"><span th:text="${i}"></span></a></li>
+						<li th:if="${currentPage+1 != totalPage}" class="page-item"><a
+							th:href="@{'/user/show-contacts/'+${currentPage+1}}"
+							class="page-link" href="#">Next</a></li>
+					</ul>
+				</nav>
+
+			</div>
+		</div>
+
+		
+	<script>
+	$(document).ready(()=>{
+			$(".item").removeClass("active");
+			$("#view-link").addClass("active");		
+		})
+		
+		
+	</script>
+	</section>
+	
+	
+</body>
+</html>

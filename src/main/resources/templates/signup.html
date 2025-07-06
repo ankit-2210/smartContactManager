@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up Page</title>
+</head>
+<body>
+	<section class="text-gray-600 body-font">
+		<div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
+			<div class="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
+				<h1 class="title-font font-medium text-3xl text-gray-900">Slow-carb
+					next level shoindcgoitch ethical authentic, poko scenester</h1>
+				<p class="leading-relaxed mt-4">Poke slow-carb mixtape
+					knausgaard, typewriter street art gentrify hammock starladder
+					roathse. Craies vegan tousled etsy austin.</p>
+			</div>
+			<div
+				class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+				<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert alert-primary" role="alert">
+					<p class="text-center" th:text="${session.message.content}"></p>
+					
+				</div>
+				
+				<h2 class="text-gray-900 text-lg font-medium title-font mb-5">Sign
+					Up !!</h2>
+					
+				<form novalidate action="" th:action="@{/do_register}" method="POST" th:object="${user}">
+					<div class="relative mb-4">
+						<label for="name" class="leading-7 text-sm text-gray-600">Full
+							Name</label> <input type="text" id="name" th:value="${user.name}" name="name"
+							placeholder="Enter your name" th:field="*{name}"
+							th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"
+							class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+							<div th:if="${#fields.hasErrors('name')}"
+							th:errors="*{name}" class="invalid-feedback"></div>
+					</div>
+					<div class="relative mb-4">
+						<label for="email" class="leading-7 text-sm text-gray-600">Email</label>
+						<input type="email" id="email" th:value="${user.email}" name="email"
+							placeholder="Enter your email"
+							class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+					</div>
+					<div class="relative mb-4">
+						<label for="password" class="leading-7 text-sm text-gray-600">Password</label>
+						<input type="password" id="password" name="password"
+							placeholder="Enter password"
+							class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+					</div>
+
+					<div class="relative mb-4">
+						<label for="text" class="leading-7 text-sm text-gray-600">Textarea</label>
+						<textarea
+							class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+							th:value="${user.about}" name="about" placeholder="Enter something about yourself"></textarea>
+					</div>
+
+					<div class="mb-3 form-check">
+						<input type="checkbox" name="agreement" class="form-check-input" id="exampleCheck1">
+						<label class="form-check-label" for="exampleCheck1">Accept terms and condition</label>
+					</div>
+
+					<button
+						class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+					<button
+						class="text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg">Reset</button>
+					<p class="text-xs text-gray-500 mt-3">Literally you probably
+						haven't heard of them jean shorts.</p>
+				</form>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>
